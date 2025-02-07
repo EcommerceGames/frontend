@@ -3,19 +3,19 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
+import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <CssVarsProvider theme={theme}>
       <BrowserRouter>
         <CssBaseline />
         <App />
       </BrowserRouter>
-    </ThemeProvider>
+    </CssVarsProvider>
   </React.StrictMode>
 );
 

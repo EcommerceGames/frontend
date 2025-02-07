@@ -4,6 +4,7 @@ import LogoHeader from "../../assets/images/logo.png";
 import { enumMenu } from "../../utils/contants";
 import ButtonMain from "../button/buttonMain";
 import { Link } from "react-router-dom";
+import DarkLight from "../darkLight";
 export default function Header() {
   return (
     <>
@@ -49,6 +50,7 @@ export default function Header() {
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <ButtonMain text={"sign in"} />
           <ButtonMain text={"sign up"} />
+          <DarkLight />
         </Box>
       </Box>
     </>

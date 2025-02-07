@@ -16,7 +16,7 @@ export default function DefaultLayout({ children }) {
     <Box
       sx={{
         height: "100vh",
-        backgroundColor: "background.default",
+        backgroundColor: (theme) => theme.palette.background.default,
       }}
     >
       <Container disableGutters maxWidth="lg">

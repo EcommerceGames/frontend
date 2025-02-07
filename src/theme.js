@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
 
-const theme = createTheme({
+const theme = extendTheme({
   GameZone: {
     heightHeader: "102px",
     paddingHeader: "15px",
@@ -24,7 +24,14 @@ const theme = createTheme({
       },
     },
     dark: {
-      palette: {},
+      palette: {
+        background: {
+          default: "#FFFFFF",
+        },
+        text: {
+          primary: "#161616",
+        },
+      },
     },
   },
 });

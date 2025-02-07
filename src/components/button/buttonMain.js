@@ -9,6 +9,11 @@ export default function ButtonMain({ text }) {
         padding: "10px 30px",
         color: (theme) => theme.palette.text.primary,
         textTransform: "uppercase",
+        "&:hover": {
+          backgroundColor: "#FFA733",
+          color: "#FFF5E1",
+          boxShadow: "0px 4px 15px rgba(255, 128, 0, 0.5)",
+        },
       }}
     >
       {text}
