@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { routes } from "./routes";
-
 import { Fragment } from "react";
 import DefaultLayout from "./layouts";
 
