@@ -16,6 +16,7 @@ const theme = extendTheme({
         text: {
           primary: "#FFFFFF",
           secondary: "#FF8000",
+          hint: "#cdcdcd",
         },
         ButtonColor: {
           main: "#FF8000",

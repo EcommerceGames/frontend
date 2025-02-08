@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Container } from "@mui/material";
-
+import BackgroundBanner from "../assets/images/banner/background.png";
 const AppLayout = ({ children }) => {
   return (
     <>
@@ -19,15 +19,19 @@ export default function DefaultLayout({ children }) {
         backgroundColor: (theme) => theme.palette.background.default,
       }}
     >
-      <Container disableGutters maxWidth="lg">
-        <Box
-          sx={{
-            height: (theme) => theme.GameZone.heightHeader,
-            padding: (theme) => theme.GameZone.paddingHeader,
-          }}
-        >
+      <Box
+        sx={{
+          backgroundImage: `url(${BackgroundBanner})`,
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Container disableGutters maxWidth="lg">
           <Header />
-        </Box>
+        </Container>
+      </Box>
+      <Container disableGutters maxWidth="lg">
         <AppLayout>{children}</AppLayout>
         <Box>
           <Footer />
