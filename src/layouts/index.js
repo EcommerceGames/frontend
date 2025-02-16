@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { Container } from "@mui/material";
 import BackgroundBanner from "../assets/images/banner/background.png";
+import Slider from "../components/slider";
 const AppLayout = ({ children }) => {
   return (
     <>
@@ -30,6 +31,7 @@ export default function DefaultLayout({ children }) {
         <Container disableGutters maxWidth="lg">
           <Header />
         </Container>
+        <Slider />
       </Box>
       <Container disableGutters maxWidth="lg">
         <AppLayout>{children}</AppLayout>
