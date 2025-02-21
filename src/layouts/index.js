@@ -18,20 +18,36 @@ export default function DefaultLayout({ children }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const [bgColor, setBgColor] = useState("transparent");
+  const [boxShadow, setBoxShadow] = useState("none");
   const headerRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current) {
         const headerHeight = headerRef.current.clientHeight;
-        window.scrollY > headerHeight
-          ? setBgColor("black")
-          : setBgColor("transparent");
+        const scrolled = window.scrollY > headerHeight;
+        if (isHomePage) {
+          setBgColor(scrolled ? "#1d1f1f" : "transparent");
+          setBoxShadow(
+            scrolled ? "1.5px 3.99px 27px 0px rgb(255 255 255 / 10%)" : "none"
+          );
+        }
+        if (!isHomePage) {
+          setBgColor("#1d1f1f");
+          setBoxShadow(
+            scrolled ? "1.5px 3.99px 27px 0px rgb(255 255 255 / 10%)" : "none"
+          );
+        }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
+  useEffect(() => {
+    setBgColor(isHomePage ? "transparent" : "#1d1f1f");
+    setBoxShadow("none");
+    window.scrollTo(0, 0);
+  }, [location.pathname, isHomePage]);
   return (
     <Box
       sx={{
@@ -47,8 +63,9 @@ export default function DefaultLayout({ children }) {
           left: 0,
           width: "100%",
           zIndex: 1000,
-          transition: "background-color 0.3s ease-in-out",
+          transition: "background-color 0.2s ease-in-out",
           backgroundColor: bgColor,
+          boxShadow: boxShadow,
         }}
       >
         <Container disableGutters maxWidth="lg">
