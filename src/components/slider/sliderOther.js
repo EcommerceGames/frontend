@@ -1,8 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import BgOther from "../../assets/images/banner/bannerOther.png";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SliderOther() {
+  const location = useLocation();
+  const pathname = location.pathname.replace("/", "");
   return (
     <>
       <Box
@@ -28,8 +31,11 @@ export default function SliderOther() {
         />
         <Box
           sx={{
-            maxWidth: "1170px",
+            width: "1170px",
             zIndex: "1",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
           <Typography
@@ -39,6 +45,27 @@ export default function SliderOther() {
             }}
           >
             GameZone
+          </Typography>
+
+          <Typography
+            sx={{
+              cursor: "pointer",
+            }}
+          >
+            <Box
+              component={Link}
+              to="/"
+              sx={{
+                color: "#FFFFFF",
+                textDecoration: "none",
+                "&:hover": {
+                  color: (theme) => theme.palette.text.secondary,
+                },
+              }}
+            >
+              Home
+            </Box>
+            /{pathname}
           </Typography>
         </Box>
       </Box>

@@ -4,19 +4,19 @@ export const enumMenu = [
     name: "Home",
   },
   {
-    path: "/aboutUs",
+    path: "/AboutUs",
     name: "About Us",
   },
   {
-    path: "/games",
+    path: "/Games",
     name: "All Game",
   },
   {
-    path: "/blogs",
+    path: "/Blogs",
     name: "Blog",
   },
   {
-    path: "/contactUs",
+    path: "/ContactUs",
     name: "Contact",
   },
 ];
