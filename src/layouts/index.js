@@ -78,7 +78,6 @@ export default function DefaultLayout({ children }) {
       <Box
         sx={{
           padding: "71px 0px 59px ",
-          backgroundColor: "#1d1f1f",
         }}
       >
         <Container disableGutters maxWidth="lg">

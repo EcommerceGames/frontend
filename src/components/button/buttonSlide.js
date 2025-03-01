@@ -1,10 +1,12 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-export default function ButtonSlide() {
+export default function ButtonSlide({ text }) {
   return (
     <Button
       sx={{
+        width: "140px",
+        height: "48px",
         cursor: "pointer",
         backgroundColor: (theme) => theme.palette.ButtonColor.main,
         color: "#FFF",
@@ -17,7 +19,7 @@ export default function ButtonSlide() {
         },
       }}
     >
-      Know More
+      {text}
     </Button>
   );
 }

@@ -6,6 +6,7 @@ import Test from "../../assets/images/slider/slider.png";
 import ButtonSlide from "../button/buttonSlide";
 import BackgroundBanner from "../../assets/images/banner/background.png";
 import Border from "../../assets/images/banner/border.png";
+import StarRating from "../rating";
 export default function Slider() {
   const Slide = [
     {
@@ -156,6 +157,7 @@ export default function Slider() {
                 >
                   {item.title}
                 </Typography>
+                <StarRating value={3.5} />
                 <Typography
                   sx={{
                     fontSize: "14px",
@@ -165,7 +167,7 @@ export default function Slider() {
                 >
                   {item.content}
                 </Typography>
-                <ButtonSlide />
+                <ButtonSlide text={"Know More"} />
               </Box>
             </Box>
           </SwiperSlide>
