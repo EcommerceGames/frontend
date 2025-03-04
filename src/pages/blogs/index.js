@@ -6,7 +6,7 @@ import SmsIcon from "@mui/icons-material/Sms";
 export default function Blog() {
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
-      <Container disableGutters maxWidth="lg" sx={{ padding: "100px 0" }}>
+      <Container disableGutters maxWidth="lg" sx={{ padding: "71px 0" }}>
         <Grid container spacing={2}>
           <Grid item sm={12} md={6} lg={4} sx={{ padding: "0 15px" }}>
             <Box sx={{ marginTop: "30px" }}>
