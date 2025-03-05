@@ -1,66 +1,154 @@
+import React, { useState } from "react";
 import {
-  Avatar,
-  Box,
-  Button,
   Container,
   TextField,
+  Button,
   Typography,
+  Box,
+  Paper,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
-import React, { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Background from "../../assets/images/login/background.png";
+import Logo from "../../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ switchToSignIn }) => {
-  const [avatar, setAvatar] = useState(null);
-
-  //   const handleAvatarChange = (event) => {
-  //     const file = event.target.files[0];
-  //     if (file) {
-  //       setAvatar(URL.createObjectURL(file));
-  //     }
-  //   };
+const SignUp = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Box
       sx={{
-        display: "flex",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
         height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundImage: `url(${Background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        zIndex: -1,
       }}
     >
-      <Container maxWidth="xs">
-        <Typography variant="h4" align="center" gutterBottom>
-          Đăng Ký
-        </Typography>
-        <Box display="flex" justifyContent="center" mb={2}>
-          <Avatar src={avatar} sx={{ width: 80, height: 80 }} />
-        </Box>
-        {/* <Button variant="outlined" component="label" fullWidth>
-          Chọn ảnh đại diện
-          <input type="file" hidden onChange={handleAvatarChange} />
-        </Button> */}
-        <TextField
-          fullWidth
-          label="Tên người dùng"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField fullWidth label="Email" margin="normal" variant="outlined" />
-        <TextField
-          fullWidth
-          label="Mật khẩu"
-          type="password"
-          margin="normal"
-          variant="outlined"
-        />
-        <Button fullWidth variant="contained" color="primary" sx={{ mt: 2 }}>
-          Đăng ký
-        </Button>
-        <Button fullWidth sx={{ mt: 2 }} variant="outlined">
-          Đăng ký bằng Google
-        </Button>
-        <Button fullWidth onClick={switchToSignIn} sx={{ mt: 2 }}>
-          Đã có tài khoản? Đăng nhập
-        </Button>
+      <Container
+        maxWidth="xs"
+        sx={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Paper
+          elevation={6}
+          sx={{
+            p: 4,
+            bgcolor: "rgba(179, 100, 21, 0.2)",
+            color: "white",
+            borderRadius: 3,
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <Box component="img" src={Logo} />
+          </Box>
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ color: "#FFFFFF", fontSize: "28px" }}
+          >
+            Register
+          </Typography>
+          <TextField
+            fullWidth
+            label="User name"
+            type="text"
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{ style: { color: "white" } }}
+            sx={{
+              input: { color: "white" },
+              "& label.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": { borderColor: "white" },
+                "&.Mui-focused fieldset": { borderColor: "white" },
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{ style: { color: "white" } }}
+            sx={{
+              input: { color: "white" },
+              "& label.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": { borderColor: "white" },
+                "&.Mui-focused fieldset": { borderColor: "white" },
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{ style: { color: "white" } }}
+            sx={{
+              input: { color: "white" },
+              "& label.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": { borderColor: "white" },
+                "&.Mui-focused fieldset": { borderColor: "white" },
+              },
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                    sx={{ color: "white" }}
+                  >
+                    {showPassword ? (
+                      <VisibilityOff sx={{ fontSize: "18px" }} />
+                    ) : (
+                      <Visibility sx={{ fontSize: "18px" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, bgcolor: "#ff8000" }}
+          >
+            REGISTER
+          </Button>
+          <Button
+            fullWidth
+            sx={{ mt: 2, color: "#FFFFFF" }}
+            onClick={() => navigate("/signin")}
+          >
+            SignIn
+          </Button>
+        </Paper>
       </Container>
     </Box>
   );
