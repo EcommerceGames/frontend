@@ -4,9 +4,11 @@ import Blog from "../pages/blogs";
 import ContactUs from "../pages/contactUs";
 import Games from "../pages/games";
 import HomePage from "../pages/homePage";
+import SignUp from "../pages/signup";
 
 export const routes = [
-  { path: "/login", page: SignIn, isShowHeader: false },
+  { path: "/signin", page: SignIn, isShowHeader: false },
+  { path: "/signup", page: SignUp, isShowHeader: false },
   {
     path: "/",
     page: HomePage,

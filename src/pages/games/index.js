@@ -305,7 +305,12 @@ export default function Game() {
                 }}
               >
                 <Typography
-                  sx={{ color: "#FFFFFF", textAlign: "center", width: "100%" }}
+                  sx={{
+                    color: "#FFFFFF",
+                    textAlign: "center",
+                    width: "100%",
+                    fontSize: "18px",
+                  }}
                 >
                   Không tìm thấy game{" "}
                 </Typography>
