@@ -13,10 +13,36 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Background from "../../assets/images/login/background.png";
 import Logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .matches(/^[a-zA-Z0-9_]+$/, "Invalid username")
+    .required("Username is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters"),
+});
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log("data", data);
+  };
 
   return (
     <Box
@@ -69,78 +95,93 @@ const SignUp = () => {
           >
             Register
           </Typography>
-          <TextField
-            fullWidth
-            label="User name"
-            type="text"
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{ style: { color: "white" } }}
-            sx={{
-              input: { color: "white" },
-              "& label.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": { borderColor: "white" },
-                "&.Mui-focused fieldset": { borderColor: "white" },
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Email"
-            type="email"
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{ style: { color: "white" } }}
-            sx={{
-              input: { color: "white" },
-              "& label.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": { borderColor: "white" },
-                "&.Mui-focused fieldset": { borderColor: "white" },
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{ style: { color: "white" } }}
-            sx={{
-              input: { color: "white" },
-              "& label.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": { borderColor: "white" },
-                "&.Mui-focused fieldset": { borderColor: "white" },
-              },
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    sx={{ color: "white" }}
-                  >
-                    {showPassword ? (
-                      <VisibilityOff sx={{ fontSize: "18px" }} />
-                    ) : (
-                      <Visibility sx={{ fontSize: "18px" }} />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 2, bgcolor: "#ff8000" }}
-          >
-            REGISTER
-          </Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              fullWidth
+              label="User name"
+              type="text"
+              margin="normal"
+              variant="outlined"
+              {...register("username")}
+              error={!!errors.username}
+              helperText={errors.username?.message}
+              InputLabelProps={{ style: { color: "white" } }}
+              sx={{
+                input: { color: "white" },
+                "& label.Mui-focused": { color: "white" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "white" },
+                  "&:hover fieldset": { borderColor: "white" },
+                  "&.Mui-error fieldset": { borderColor: "red !important" },
+                },
+              }}
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              type="email"
+              margin="normal"
+              variant="outlined"
+              {...register("email")}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              InputLabelProps={{ style: { color: "white" } }}
+              sx={{
+                input: { color: "white" },
+                "& label.Mui-focused": { color: "white" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "white" },
+                  "&:hover fieldset": { borderColor: "white" },
+                  "&.Mui-error fieldset": { borderColor: "red !important" },
+                },
+              }}
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              margin="normal"
+              variant="outlined"
+              {...register("password")}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              InputLabelProps={{ style: { color: "white" } }}
+              sx={{
+                input: { color: "white" },
+                "& label.Mui-focused": { color: "white" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "white" },
+                  "&:hover fieldset": { borderColor: "white" },
+                  "&.Mui-error fieldset": { borderColor: "red !important" },
+                },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      sx={{ color: "white" }}
+                    >
+                      {showPassword ? (
+                        <VisibilityOff sx={{ fontSize: "18px" }} />
+                      ) : (
+                        <Visibility sx={{ fontSize: "18px" }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              sx={{ mt: 2, bgcolor: "#ff8000" }}
+            >
+              REGISTER
+            </Button>
+          </form>
           <Button
             fullWidth
             sx={{ mt: 2, color: "#FFFFFF" }}
