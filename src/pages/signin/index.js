@@ -105,6 +105,7 @@ const SignIn = () => {
               helperText={errors.email?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
+                marginTop: "0px",
                 input: { color: "white" },
                 "& label.Mui-focused": { color: "white" },
                 "& .MuiOutlinedInput-root": {
@@ -125,6 +126,7 @@ const SignIn = () => {
               helperText={errors.password?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
+                marginTop: "0px",
                 input: { color: "white" },
                 "& label.Mui-focused": { color: "white" },
                 "& .MuiOutlinedInput-root": {

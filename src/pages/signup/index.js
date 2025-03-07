@@ -107,6 +107,7 @@ const SignUp = () => {
               helperText={errors.username?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
+                marginTop: "0px",
                 input: { color: "white" },
                 "& label.Mui-focused": { color: "white" },
                 "& .MuiOutlinedInput-root": {
@@ -127,6 +128,7 @@ const SignUp = () => {
               helperText={errors.email?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
+                marginTop: "0px",
                 input: { color: "white" },
                 "& label.Mui-focused": { color: "white" },
                 "& .MuiOutlinedInput-root": {
@@ -147,6 +149,45 @@ const SignUp = () => {
               helperText={errors.password?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
+                marginTop: "0px",
+                input: { color: "white" },
+                "& label.Mui-focused": { color: "white" },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": { borderColor: "white" },
+                  "&:hover fieldset": { borderColor: "white" },
+                  "&.Mui-error fieldset": { borderColor: "red !important" },
+                },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      sx={{ color: "white" }}
+                    >
+                      {showPassword ? (
+                        <VisibilityOff sx={{ fontSize: "18px" }} />
+                      ) : (
+                        <Visibility sx={{ fontSize: "18px" }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              fullWidth
+              label="Confirm password"
+              type={showPassword ? "text" : "password"}
+              margin="normal"
+              variant="outlined"
+              {...register("password")}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              InputLabelProps={{ style: { color: "white" } }}
+              sx={{
+                marginTop: "0px",
                 input: { color: "white" },
                 "& label.Mui-focused": { color: "white" },
                 "& .MuiOutlinedInput-root": {
