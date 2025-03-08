@@ -9,6 +9,7 @@ import theme from "./theme";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { Toaster } from "react-hot-toast";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ root.render(
           <BrowserRouter>
             <CssBaseline />
             <App />
+            <Toaster position="bottom-right" reverseOrder={true} />
           </BrowserRouter>
         </CssVarsProvider>
       </PersistGate>

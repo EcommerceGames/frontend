@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/slide/apiRequest";
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
@@ -28,6 +30,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -39,6 +42,7 @@ const SignIn = () => {
   });
 
   const onSubmit = (data) => {
+    loginUser(data, dispatch, navigate);
     console.log("data", data);
   };
 

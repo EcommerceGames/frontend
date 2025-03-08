@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/slide/apiRequest";
 const schema = yup.object().shape({
   username: yup
     .string()
@@ -26,10 +28,15 @@ const schema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
 });
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -41,6 +48,7 @@ const SignUp = () => {
   });
 
   const onSubmit = (data) => {
+    registerUser(data, dispatch, navigate);
     console.log("data", data);
   };
 
@@ -182,9 +190,9 @@ const SignUp = () => {
               type={showPassword ? "text" : "password"}
               margin="normal"
               variant="outlined"
-              {...register("password")}
-              error={!!errors.password}
-              helperText={errors.password?.message}
+              {...register("confirmPassword")}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword?.message}
               InputLabelProps={{ style: { color: "white" } }}
               sx={{
                 marginTop: "0px",
