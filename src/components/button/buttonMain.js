@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-export default function ButtonMain({ text }) {
+export default function ButtonMain({ text, onClick }) {
   return (
     <Button
+      onClick={onClick}
       sx={{
         backgroundColor: (theme) => theme.palette.ButtonColor.main,
         padding: "10px 30px",

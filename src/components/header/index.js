@@ -3,11 +3,11 @@ import React from "react";
 import LogoHeader from "../../assets/images/logo.png";
 import { enumMenu } from "../../utils/contants";
 import ButtonMain from "../button/buttonMain";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DarkLight from "../darkLight";
 
-
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -54,12 +54,11 @@ export default function Header() {
           ))}
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <ButtonMain text={"sign in"} />
-          <ButtonMain text={"sign up"} />
+          <ButtonMain text={"sign in"} onClick={() => navigate("/signin")} />
+          <ButtonMain text={"sign up"} onClick={() => navigate("/signup")} />
           <DarkLight />
         </Box>
       </Box>
-      
     </Box>
   );
 }
