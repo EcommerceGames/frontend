@@ -5,6 +5,8 @@ import ContactUs from "../pages/contactUs";
 import Games from "../pages/games";
 import HomePage from "../pages/homePage";
 import SignUp from "../pages/signup";
+import InfoAccount from "../pages/infoAccount";
+import Wishlist from "../pages/wishlist";
 
 export const routes = [
   { path: "/signin", page: SignIn, isShowHeader: false },
@@ -32,6 +34,16 @@ export const routes = [
   {
     path: "/contactUs",
     page: ContactUs,
+    isShowHeader: true,
+  },
+  {
+    path: "/infoAccount",
+    page: InfoAccount,
+    isShowHeader: true,
+  },
+  {
+    path: "/wishlist",
+    page: Wishlist,
     isShowHeader: true,
   },
 ];

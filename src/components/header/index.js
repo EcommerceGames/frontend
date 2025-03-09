@@ -1,12 +1,38 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
 import LogoHeader from "../../assets/images/logo.png";
 import { enumMenu } from "../../utils/contants";
 import ButtonMain from "../button/buttonMain";
 import { Link, useNavigate } from "react-router-dom";
-import DarkLight from "../darkLight";
+// import DarkLight from "../darkLight";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/slide/apiRequest";
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //logout
+  const handleLogout = () => {
+    logOut(dispatch, navigate);
+  };
+  const user = useSelector((state) => state.user.user.currentUser);
+  // console.log("user", user);
   const navigate = useNavigate();
   return (
     <Box
@@ -54,9 +80,90 @@ export default function Header() {
           ))}
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <ButtonMain text={"sign in"} onClick={() => navigate("/signin")} />
-          <ButtonMain text={"sign up"} onClick={() => navigate("/signup")} />
-          <DarkLight />
+          {user ? (
+            <Box>
+              <IconButton
+                onClick={handleClick}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <Avatar src={user.avatar || "/default-avatar.png"} />
+                <Typography sx={{ color: "#FFFFFF" }}>
+                  {user.username}
+                </Typography>
+              </IconButton>
+              <Menu
+                sx={{
+                  "& .MuiPaper-root": {
+                    backgroundColor: "rgba(129, 122, 122, 0)",
+                    backdropFilter: "blur(10px)",
+                    color: "#fff",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+                    borderRadius: "8px",
+                  },
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                transformOrigin={{ vertical: "top", horizontal: "center" }}
+              >
+                <MenuItem
+                  sx={{
+                    color: "#fff",
+                    transition: "background 0.3s ease-in-out",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    },
+                  }}
+                  onClick={() => navigate("/infoAccount")}
+                >
+                  Account information
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    color: "#fff",
+                    transition: "background 0.3s ease-in-out",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    },
+                  }}
+                  onClick={() => navigate("/wishlist")}
+                >
+                  Wishlist
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    color: "#fff",
+                    transition: "background 0.3s ease-in-out",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    },
+                  }}
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <ButtonMain
+                text={"sign in"}
+                onClick={() => navigate("/signin")}
+              />
+              <ButtonMain
+                text={"sign up"}
+                onClick={() => navigate("/signup")}
+              />
+            </Box>
+          )}
+          {/* <DarkLight /> */}
         </Box>
       </Box>
     </Box>

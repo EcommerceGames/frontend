@@ -88,7 +88,7 @@ export const logOut = async (dispatch, navigate) => {
     const res = await userCall.logout();
     console.log("res", res?.data);
     dispatch(logOutSuccess());
-    navigate("/login");
+    navigate("/signin");
     toast.success("Logout successfully");
   } catch (err) {
     dispatch(logOutFailed());
