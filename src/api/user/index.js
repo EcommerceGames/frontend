@@ -91,4 +91,70 @@ export const userCall = {
       throw error;
     }
   },
+  //deleteUser
+  delete: async (id) => {
+    try {
+      const response = await clientAPI("delete", `/user/deleteUser/${id}`);
+      return response;
+    } catch (error) {
+      console.error("Create error:", error);
+      const errorMessages = error?.response?.data?.errors?.map(
+        (err) => err.message
+      ) || [
+        error?.response?.data?.message ||
+          error?.response?.statusText ||
+          error?.message ||
+          "An unexpected error occurred.",
+      ];
+
+      errorMessages.forEach((message) => {
+        toast.error(`${message}`);
+      });
+      throw error;
+    }
+  },
+  //getUser
+  getUser: async (id) => {
+    try {
+      const response = await clientAPI("get", `/user/getUser/${id}`);
+      return response;
+    } catch (error) {
+      console.error("Create error:", error);
+      const errorMessages = error?.response?.data?.errors?.map(
+        (err) => err.message
+      ) || [
+        error?.response?.data?.message ||
+          error?.response?.statusText ||
+          error?.message ||
+          "An unexpected error occurred.",
+      ];
+
+      errorMessages.forEach((message) => {
+        toast.error(`${message}`);
+      });
+      throw error;
+    }
+  },
+  //getAllUser
+  getAllUser: async () => {
+    try {
+      const response = await clientAPI("get", "/user/getAllUser");
+      return response;
+    } catch (error) {
+      console.error("Create error:", error);
+      const errorMessages = error?.response?.data?.errors?.map(
+        (err) => err.message
+      ) || [
+        error?.response?.data?.message ||
+          error?.response?.statusText ||
+          error?.message ||
+          "An unexpected error occurred.",
+      ];
+
+      errorMessages.forEach((message) => {
+        toast.error(`${message}`);
+      });
+      throw error;
+    }
+  },
 };
