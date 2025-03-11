@@ -8,6 +8,9 @@ import {
   registerFailed,
   registerStart,
   registerSuccess,
+  updateFailed,
+  updateStart,
+  updateSuccess,
 } from "./userSlide";
 
 import { userCall } from "../../api/user";
@@ -18,7 +21,7 @@ export const registerUser = async (user, dispatch, navigate) => {
   dispatch(registerStart());
   try {
     const res = await userCall.register(user);
-    console.log("res", res?.data);
+    // console.log("res", res?.data);
     localStorage.setItem("register", JSON.stringify(res));
     dispatch(registerSuccess());
     toast.success("Register successfully!");
@@ -52,7 +55,7 @@ export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
     const res = await userCall.signin(user);
-    console.log("res", res?.data);
+    // console.log("res", res?.data);
     localStorage.setItem("user", JSON.stringify(res));
     dispatch(loginSuccess(res?.data));
     navigate("/");
@@ -86,11 +89,24 @@ export const logOut = async (dispatch, navigate) => {
   dispatch(logOutStart());
   try {
     const res = await userCall.logout();
-    console.log("res", res?.data);
+    // console.log("res", res?.data);
     dispatch(logOutSuccess());
     navigate("/signin");
     toast.success("Logout successfully");
   } catch (err) {
     dispatch(logOutFailed());
+  }
+};
+
+//update
+export const updateUser = async (user, dispatch) => {
+  dispatch(updateStart());
+  try {
+    const res = await userCall.update(user._id, user);
+    // console.log("res", res?.data);
+    dispatch(updateSuccess(res?.data));
+    toast.success("UpdateUser successfully");
+  } catch (err) {
+    dispatch(updateFailed());
   }
 };

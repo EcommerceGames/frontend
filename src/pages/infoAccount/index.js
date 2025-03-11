@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -8,21 +8,33 @@ import {
   Container,
   Avatar,
 } from "@mui/material";
-import { Email, Person, Phone, ErrorOutline } from "@mui/icons-material";
+import { Email, Person, Phone } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../redux/slide/apiRequest";
 
 export default function InfoAccount() {
   const user = useSelector((state) => state.user.user.currentUser);
+  const dispatch = useDispatch();
+  // console.log("user", user);
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: user.username,
+    username: user.username,
     phone: user.phone,
     email: user.email,
     address: user.address,
     image: user.image,
   });
 
-  const [error, setError] = useState(false);
+  useEffect(() => {
+    setFormData({
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      image: user.image,
+    });
+  }, [user]);
 
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
@@ -39,56 +51,71 @@ export default function InfoAccount() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const isEmpty = Object.values(formData).some(
-      (value) => typeof value === "string" && value.trim() === ""
-    );
-    setError(isEmpty);
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    updateUser({ ...user, ...formData }, dispatch);
+    setIsEditing(false);
   };
 
   return (
-    <Box sx={{ backgroundColor: "#121212", minHeight: "100vh", py: 5 }}>
+    <Box sx={{ backgroundColor: "#121212", py: 10 }}>
       <Container
+        disableGutters
+        maxWidth="md"
         sx={{
           color: "#fff",
           p: 5,
-          maxWidth: 600,
+          maxWidth: "400px",
           mx: "auto",
           borderRadius: 2,
           backgroundColor: "#1e1e1e",
         }}
       >
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} justifyContent="center">
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          gutterBottom
+          sx={{
+            marginBottom: "50px",
+            textAlign: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          Information Account
+        </Typography>
+        <form>
+          <Grid container spacing={3} justifyContent="center">
             {/* Avatar */}
             <Grid item xs={12} sx={{ textAlign: "center" }}>
               <Box sx={{ position: "relative", display: "inline-block" }}>
                 <Avatar
                   src={formData.image || "/default-avatar.png"}
-                  sx={{ width: 100, height: 100, mx: "auto", mb: 1 }}
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    mx: "auto",
+                    mb: 1,
+                    cursor: isEditing ? "pointer" : "default",
+                  }}
+                  onClick={() =>
+                    isEditing && document.getElementById("avatar-input").click()
+                  }
                 />
                 <input
+                  id="avatar-input"
                   type="file"
                   accept="image/*"
                   onChange={handleAvatarChange}
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    opacity: 0,
-                    cursor: "pointer",
-                  }}
+                  style={{ display: "none" }}
                 />
               </Box>
-              <Typography variant="body2" sx={{ color: "#FF8000", mt: 1 }}>
-                Nhấp để chọn ảnh đại diện
-              </Typography>
             </Grid>
 
-            {/* Input Fields */}
             {[
-              { label: "User Name", name: "name", icon: <Person /> },
+              { label: "User Name", name: "username", icon: <Person /> },
               { label: "Your Phone", name: "phone", icon: <Phone /> },
               { label: "Your Email", name: "email", icon: <Email /> },
               { label: "Your Address", name: "address", icon: <HomeIcon /> },
@@ -100,44 +127,86 @@ export default function InfoAccount() {
                   name={field.name}
                   value={formData[field.name]}
                   onChange={handleChange}
+                  disabled={field.label !== "Your Email" ? !isEditing : true}
                   InputProps={{
                     startAdornment: (
                       <Box sx={{ color: "gray", mr: 1 }}>{field.icon}</Box>
                     ),
                   }}
-                  sx={{ bgcolor: "#292929", borderRadius: 1 }}
+                  sx={{
+                    bgcolor: "#292929",
+                    borderRadius: 1,
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      color: "gray",
+                      WebkitTextFillColor: "gray",
+                    },
+                    "& label.Mui-disabled": {
+                      color: "#FF8000",
+                    },
+                    "& label.Mui-focused": {
+                      color: "#FF8000",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": { borderColor: "white" },
+                      "&:hover fieldset": { borderColor: "white" },
+                      "&.Mui-error fieldset": { borderColor: "red !important" },
+                    },
+                  }}
                 />
               </Grid>
             ))}
 
-            {/* Save Button */}
-            <Grid item xs={12} sx={{ textAlign: "center" }}>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  width: "140px",
-                  height: "48px",
-                  bgcolor: "#FF8000",
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
-              >
-                Save
-              </Button>
-
-              {error && (
-                <Typography
+            {/* Buttons */}
+            <Grid
+              item
+              xs={12}
+              sx={{ textAlign: "center", display: "flex", gap: "10px" }}
+            >
+              {isEditing ? (
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <Button
+                    onClick={handleSave}
+                    variant="contained"
+                    sx={{
+                      width: "140px",
+                      height: "48px",
+                      bgcolor: "#FF8000",
+                      color: "#fff",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    onClick={() => setIsEditing(false)}
+                    variant="contained"
+                    sx={{
+                      width: "140px",
+                      height: "48px",
+                      bgcolor: "#FF8000",
+                      color: "#fff",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Cancle
+                  </Button>
+                </Box>
+              ) : (
+                <Button
+                  onClick={handleEdit}
+                  variant="contained"
                   sx={{
-                    color: "red",
-                    mt: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    width: "140px",
+                    height: "48px",
+                    bgcolor: "#FF8000",
+                    color: "#fff",
+                    fontWeight: "bold",
                   }}
                 >
-                  <ErrorOutline sx={{ mr: 1 }} /> You missed out some fields.
-                </Typography>
+                  Edit
+                </Button>
               )}
             </Grid>
           </Grid>

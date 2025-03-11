@@ -69,4 +69,26 @@ export const userCall = {
       throw error;
     }
   },
+  //update
+  update: async (id, data) => {
+    try {
+      const response = await clientAPI("put", `/user/updateUser/${id}`, data);
+      return response;
+    } catch (error) {
+      console.error("Create error:", error);
+      const errorMessages = error?.response?.data?.errors?.map(
+        (err) => err.message
+      ) || [
+        error?.response?.data?.message ||
+          error?.response?.statusText ||
+          error?.message ||
+          "An unexpected error occurred.",
+      ];
+
+      errorMessages.forEach((message) => {
+        toast.error(`${message}`);
+      });
+      throw error;
+    }
+  },
 };

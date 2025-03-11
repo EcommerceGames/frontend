@@ -90,7 +90,7 @@ export default function Header() {
                   gap: "10px",
                 }}
               >
-                <Avatar src={user.avatar || "/default-avatar.png"} />
+                <Avatar src={user.image || "/default-avatar.png"} />
                 <Typography sx={{ color: "#FFFFFF" }}>
                   {user.username}
                 </Typography>
@@ -119,7 +119,10 @@ export default function Header() {
                       backgroundColor: "rgba(255, 255, 255, 0.2)",
                     },
                   }}
-                  onClick={() => navigate("/infoAccount")}
+                  onClick={() => {
+                    navigate("/infoAccount");
+                    handleClose();
+                  }}
                 >
                   Account information
                 </MenuItem>
@@ -131,7 +134,10 @@ export default function Header() {
                       backgroundColor: "rgba(255, 255, 255, 0.2)",
                     },
                   }}
-                  onClick={() => navigate("/wishlist")}
+                  onClick={() => {
+                    navigate("/wishlist");
+                    handleClose();
+                  }}
                 >
                   Wishlist
                 </MenuItem>
