@@ -19,20 +19,20 @@ export default function InfoAccount() {
   // console.log("user", user);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    username: user.username,
-    phone: user.phone,
-    email: user.email,
-    address: user.address,
-    image: user.image,
+    username: user?.username,
+    email: user?.email,
+    phone: user?.phone,
+    address: user?.address,
+    image: user?.image,
   });
 
   useEffect(() => {
     setFormData({
-      username: user.username,
-      email: user.email,
-      phone: user.phone,
-      address: user.address,
-      image: user.image,
+      username: user?.username,
+      email: user?.email,
+      phone: user?.phone,
+      address: user?.address,
+      image: user?.image,
     });
   }, [user]);
 
@@ -92,7 +92,7 @@ export default function InfoAccount() {
             <Grid item xs={12} sx={{ textAlign: "center" }}>
               <Box sx={{ position: "relative", display: "inline-block" }}>
                 <Avatar
-                  src={formData.image || "/default-avatar.png"}
+                  src={formData?.image || "/default-avatar.png"}
                   sx={{
                     width: 100,
                     height: 100,
