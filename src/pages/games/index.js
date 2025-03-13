@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -13,48 +13,58 @@ import {
 import StarRating from "../../components/rating";
 import product from "../../assets/images/games/games.png";
 import { FavoriteBorder } from "@mui/icons-material";
-const games = [
-  {
-    id: 1,
-    title: "Black Myth Wukong",
-    genre: "Action",
-    rating: 5,
-    price: 20,
-    image: product,
-  },
-  {
-    id: 2,
-    title: "Black Myth Wukong",
-    genre: "RPG",
-    rating: 4,
-    price: 40,
-    image: product,
-  },
-  {
-    id: 3,
-    title: "Black Myth Wukong",
-    genre: "Shooter",
-    rating: 3,
-    price: 30,
-    image: product,
-  },
-  {
-    id: 4,
-    title: "Black Myth Wukong",
-    genre: "Action",
-    rating: 2,
-    price: 10,
-    image: product,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getGame } from "../../redux/slide/apiRequest";
+import { useNavigate } from "react-router-dom";
+
+// const games = [
+//   {
+//     id: 1,
+//     title: "Black Myth Wukong",
+//     genre: "Action",
+//     rating: 5,
+//     price: 20,
+//     image: product,
+//   },
+//   {
+//     id: 2,
+//     title: "Black Myth Wukong",
+//     genre: "RPG",
+//     rating: 4,
+//     price: 40,
+//     image: product,
+//   },
+//   {
+//     id: 3,
+//     title: "Black Myth Wukong",
+//     genre: "Shooter",
+//     rating: 3,
+//     price: 30,
+//     image: product,
+//   },
+//   {
+//     id: 4,
+//     title: "Black Myth Wukong",
+//     genre: "Action",
+//     rating: 2,
+//     price: 10,
+//     image: product,
+//   },
+// ];
 
 const genres = ["Action", "RPG", "Shooter"];
-const ratings = [1, 2, 3, 4, 5];
+const ratings = ["1", "2", "3", "4", "5"];
 
 export default function Game() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { currentGames } = useSelector((state) => state.game.gamesList);
+  useEffect(() => {
+    getGame(dispatch);
+  }, [dispatch]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 50]);
+  const [priceRange, setPriceRange] = useState([0, 500]);
   // const [isFavorite, setIsFavorite] = useState(false);
 
   const handleGenreChange = (genre) => {
@@ -75,7 +85,7 @@ export default function Game() {
     setPriceRange(newValue);
   };
 
-  const filteredGames = games.filter(
+  const filteredGames = currentGames.filter(
     (game) =>
       (selectedGenres.length === 0 || selectedGenres.includes(game.genre)) &&
       (selectedRatings.length === 0 || selectedRatings.includes(game.rating)) &&
@@ -216,7 +226,7 @@ export default function Game() {
           <Grid item xs={9} container spacing={3}>
             {filteredGames.length > 0 ? (
               filteredGames.map((game) => (
-                <Grid item xs={4} key={game.id}>
+                <Grid item xs={4} key={game._id}>
                   <Box
                     sx={{
                       position: "relative",
@@ -233,7 +243,7 @@ export default function Game() {
                   >
                     <Box
                       component="img"
-                      src={game.image}
+                      src={product}
                       alt={game.title}
                       sx={{
                         borderRadius: "20px",
@@ -263,6 +273,7 @@ export default function Game() {
                     </IconButton>
                     <Typography
                       variant="h6"
+                      onClick={() => navigate(`/games/${game._id}`)}
                       sx={{
                         marginTop: "5px",
                         fontSize: "18px",

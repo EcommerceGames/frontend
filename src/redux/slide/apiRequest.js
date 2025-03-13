@@ -15,6 +15,15 @@ import {
 
 import { userCall } from "../../api/user";
 import toast from "react-hot-toast";
+import {
+  getDetailFailed,
+  getDetailStart,
+  getDetailSuccess,
+  getFailed,
+  getStart,
+  getSuccess,
+} from "./gameSlide";
+import { gamesCall } from "../../api/games";
 
 //register
 export const registerUser = async (user, dispatch, navigate) => {
@@ -108,5 +117,28 @@ export const updateUser = async (user, dispatch) => {
     toast.success("UpdateUser successfully");
   } catch (err) {
     dispatch(updateFailed());
+  }
+};
+
+//getGame
+export const getGame = async (dispatch) => {
+  dispatch(getStart());
+  try {
+    const res = await gamesCall.getAllGames();
+    // console.log("res", res?.data);
+    dispatch(getSuccess(res?.data));
+  } catch (err) {
+    dispatch(getFailed());
+  }
+};
+
+//getDetailGame
+export const getDetailGame = (id) => async (dispatch) => {
+  dispatch(getDetailStart());
+  try {
+    const res = await gamesCall.getGames(id);
+    dispatch(getDetailSuccess(res?.data));
+  } catch (err) {
+    dispatch(getDetailFailed());
   }
 };

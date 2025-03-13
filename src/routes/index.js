@@ -7,6 +7,7 @@ import HomePage from "../pages/homePage";
 import SignUp from "../pages/signup";
 import InfoAccount from "../pages/infoAccount";
 import Wishlist from "../pages/wishlist";
+import GameItem from "../components/gameItem";
 
 export const routes = [
   { path: "/signin", page: SignIn, isShowHeader: false },
@@ -24,6 +25,11 @@ export const routes = [
   {
     path: "/games",
     page: Games,
+    isShowHeader: true,
+  },
+  {
+    path: "/games/:id",
+    page: GameItem,
     isShowHeader: true,
   },
   {

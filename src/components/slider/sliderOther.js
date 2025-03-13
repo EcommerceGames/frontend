@@ -1,11 +1,13 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import BgOther from "../../assets/images/banner/bannerOther.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 export default function SliderOther() {
+  const { id } = useParams();
   const location = useLocation();
   const pathname = location.pathname.replace("/", "");
+  console.log({ pathname });
   return (
     <>
       <Box
@@ -47,26 +49,49 @@ export default function SliderOther() {
             GameZone
           </Typography>
 
-          <Typography
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <Box
-              component={Link}
-              to="/"
+          {pathname === `games/${id}` ? (
+            <Typography
               sx={{
-                color: "#FFFFFF",
-                textDecoration: "none",
-                "&:hover": {
-                  color: (theme) => theme.palette.text.secondary,
-                },
+                cursor: "pointer",
               }}
             >
-              Home
-            </Box>
-            /{pathname}
-          </Typography>
+              <Box
+                component={Link}
+                to="/"
+                sx={{
+                  color: "#FFFFFF",
+                  textDecoration: "none",
+                  "&:hover": {
+                    color: (theme) => theme.palette.text.secondary,
+                  },
+                }}
+              >
+                Home
+              </Box>
+              /GameDetail
+            </Typography>
+          ) : (
+            <Typography
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              <Box
+                component={Link}
+                to="/"
+                sx={{
+                  color: "#FFFFFF",
+                  textDecoration: "none",
+                  "&:hover": {
+                    color: (theme) => theme.palette.text.secondary,
+                  },
+                }}
+              >
+                Home
+              </Box>
+              /{pathname}
+            </Typography>
+          )}
         </Box>
       </Box>
     </>
