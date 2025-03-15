@@ -13,7 +13,7 @@ export default function AboutUs() {
   const swiperRef = useRef(null);
   return (
     <Box>
-      <Container disableGutters maxWidth="lg" sx={{ padding: "71px 0 71px" }}>
+      <Container disableGutters maxWidth="lg" sx={{ padding: "80px 0 80px" }}>
         <AboutGameZone />
       </Container>
       <Box
@@ -58,7 +58,7 @@ export default function AboutUs() {
               height: "50px",
               position: "absolute",
               top: "50%",
-              left: 100,
+              left: 175,
               zIndex: 10,
               transform: "translateY(-50%)",
               bgcolor: "#FF8C00",
@@ -113,7 +113,7 @@ export default function AboutUs() {
               height: "50px",
               position: "absolute",
               top: "50%",
-              right: 100,
+              right: 175,
               zIndex: 10,
               transform: "translateY(-50%)",
               bgcolor: "#FF8C00",

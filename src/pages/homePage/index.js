@@ -65,7 +65,7 @@ export default function HomePage() {
     <Box>
       <Box sx={{ backgroundColor: "#1d1f1f" }}>
         <Container disableGutters maxWidth="lg">
-          <Box sx={{ padding: "100px 0" }}>
+          <Box sx={{ padding: "100px 15px" }}>
             <AboutGameZone />
           </Box>
         </Container>
@@ -217,7 +217,7 @@ export default function HomePage() {
               height: "50px",
               position: "absolute",
               top: "50%",
-              left: 100,
+              left: 175,
               zIndex: 10,
               transform: "translateY(-50%)",
               bgcolor: "#FF8C00",
@@ -272,7 +272,7 @@ export default function HomePage() {
               height: "50px",
               position: "absolute",
               top: "50%",
-              right: 100,
+              right: 175,
               zIndex: 10,
               transform: "translateY(-50%)",
               bgcolor: "#FF8C00",

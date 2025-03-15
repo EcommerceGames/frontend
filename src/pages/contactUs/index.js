@@ -41,9 +41,11 @@ const ContactForm = () => {
   return (
     <Box sx={{ backgroundColor: "#121212" }}>
       <Container
+        disableGutters
+        maxWidth="lg"
         sx={{
           color: "#fff",
-          p: 10,
+          p: "80px 15px ",
           maxWidth: 600,
           mx: "auto",
           borderRadius: 2,

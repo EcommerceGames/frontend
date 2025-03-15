@@ -7,7 +7,7 @@ export default function SliderOther() {
   const { id } = useParams();
   const location = useLocation();
   const pathname = location.pathname.replace("/", "");
-  console.log({ pathname });
+
   return (
     <>
       <Box

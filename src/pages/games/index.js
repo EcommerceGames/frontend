@@ -95,10 +95,10 @@ export default function Game() {
 
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
-      <Container sx={{ padding: "100px 0" }}>
+      <Container sx={{ padding: "80px 0" }}>
         <Grid container spacing={3}>
           {/* Sidebar */}
-          <Grid item xs={3}>
+          <Grid item xs={3} paddingLeft={"15px !important"}>
             <Box
               sx={{
                 marginBottom: "30px",

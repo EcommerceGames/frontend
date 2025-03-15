@@ -21,7 +21,7 @@ export default function Newsletter() {
     <Container
       disableGutters
       maxWidth="lg"
-      sx={{ padding: "73px 0px 75px", maxWidth: "1170px" }}
+      sx={{ padding: "73px 15px 75px", maxWidth: "1170px" }}
     >
       <Grid container spacing={2}>
         <Grid item lg={4} md={4}>
