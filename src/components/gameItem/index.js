@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDetailGame } from "../../redux/slide/apiRequest";
+import Games from "../../assets/images/homepage/games.png";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   Container,
   Grid,
@@ -9,37 +11,83 @@ import {
   Button,
   TextField,
   Box,
-  Rating,
 } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import product from "../../assets/images/games/games.png";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-const game = {
-  name: "Epic Game",
-  price: "$49.99",
-  rating: 4.5,
-  images: [
-    "/images/game1.png",
-    "/images/game2.png",
-    "/images/game3.png",
-    "/images/game4.png",
-  ],
-  video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  description:
-    "A thrilling adventure game with amazing graphics and storyline.",
-};
-const images = [
-  "https://swiperjs.com/demos/images/nature-1.jpg",
-  "https://swiperjs.com/demos/images/nature-2.jpg",
-  "https://swiperjs.com/demos/images/nature-3.jpg",
-  "https://swiperjs.com/demos/images/nature-4.jpg",
-  "https://swiperjs.com/demos/images/nature-5.jpg",
-  "https://swiperjs.com/demos/images/nature-6.jpg",
-  "https://swiperjs.com/demos/images/nature-7.jpg",
-  "https://swiperjs.com/demos/images/nature-8.jpg",
-  "https://swiperjs.com/demos/images/nature-9.jpg",
-  "https://swiperjs.com/demos/images/nature-10.jpg",
+import StarRating from "../rating";
+import HeadingBottom from "../../assets/images/homepage/heading-border.png";
+import { FavoriteBorder } from "@mui/icons-material";
+// const game = {
+//   name: "Epic Game",
+//   price: "$49.99",
+//   rating: 4.5,
+//   images: [
+//     "/images/game1.png",
+//     "/images/game2.png",
+//     "/images/game3.png",
+//     "/images/game4.png",
+//   ],
+//   video: "https://www.youtube.com/embed/5pL3joRyeGY",
+//   description:
+//     "A thrilling adventure game with amazing graphics and storyline.",
+// };
+const images = [product, product, product, product];
+
+const comments = [
+  {
+    avatar: product,
+    name: "Nam",
+    text: "Game hay",
+  },
+];
+const arr = [
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
+  {
+    img: Games,
+    nameGames: "Experience a fresh take.",
+    quantity: "3",
+  },
 ];
 export default function GameItem() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -55,13 +103,9 @@ export default function GameItem() {
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container disableGutters maxWidth="lg" sx={{ padding: "80px 15px" }}>
         {/* Game Details */}
-        <Grid
-          container
-          spacing={4}
-          
-        >
+        <Grid container spacing={4}>
           <Grid item xs={12} md={7}>
-            <Box sx={{ backgroundColor: "#000", padding: 2 }}>
+            <Box sx={{ height: "500px" }}>
               {/* Swiper chính */}
               <Swiper
                 style={{
@@ -79,7 +123,11 @@ export default function GameItem() {
                     <Box
                       component="img"
                       src={img}
-                      sx={{ width: "100%", objectFit: "cover" }}
+                      sx={{
+                        width: "100%",
+                        height: "400px",
+                        objectFit: "cover",
+                      }}
                     />
                   </SwiperSlide>
                 ))}
@@ -103,7 +151,7 @@ export default function GameItem() {
                       src={img}
                       sx={{
                         width: "100%",
-                        height: "100%",
+                        height: "100px",
                         objectFit: "cover",
                         opacity: 0.4,
                         "&.swiper-slide-thumb-active": { opacity: 1 },
@@ -115,30 +163,91 @@ export default function GameItem() {
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
-            <Typography variant="h4">{selectedGame.title}</Typography>
-            <Typography variant="h6" color="primary">
+            <Typography variant="h4" sx={{ fontWeight: "600" }}>
+              {selectedGame.title}
+            </Typography>
+
+            <Typography variant="h6" sx={{ color: "#FF8000" }}>
               ${selectedGame.price}
             </Typography>
-            <Rating value={selectedGame.rating} readOnly />
-            <Box sx={{ mt: 2 }}>
-              <Button variant="contained" color="primary" sx={{ mr: 2 }}>
+            <StarRating value={selectedGame.rating} readOnly />
+            <Typography sx={{ fontSize: "14px", color: "#CCCC" }}>
+              {selectedGame.content}
+            </Typography>
+            <Box sx={{ mt: 4 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  border: "2px solid #FF8000",
+                  mr: 1,
+                  backgroundColor: "transparent",
+                  "&:hover": {
+                    backgroundColor: "#FF8000",
+                  },
+                }}
+              >
                 Buy Now
               </Button>
-              <Button variant="outlined" sx={{ mr: 2 }}>
+              <Button
+                variant="outlined"
+                sx={{
+                  border: "2px solid #FF8000",
+                  mr: 1,
+                  backgroundColor: "transparent",
+                  color: "#FFF",
+                  "&:hover": {
+                    backgroundColor: "#FF8000",
+                  },
+                }}
+              >
+                <ShoppingCartIcon sx={{ marginRight: "5px" }} />
                 Add to Cart
               </Button>
-              <Button variant="outlined">Add to Wishlist</Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  border: "2px solid #FF8000",
+                  mr: 1,
+                  backgroundColor: "transparent",
+                  color: "#FFF",
+                  "&:hover": {
+                    backgroundColor: "#FF8000",
+                  },
+                }}
+              >
+                <FavoriteBorder sx={{ marginRight: "5px" }} />
+                Add to Wishlist
+              </Button>
             </Box>
           </Grid>
         </Grid>
 
         {/* Game Video Section */}
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h5">Game Trailer</Typography>
+        <Box sx={{ mt: 20 }}>
+          <Box sx={{ marginBottom: "10px" }}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box component="img" src={HeadingBottom} />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h5"
+              sx={{
+                fontSize: "18px",
+                fontWeight: 400,
+                color: (theme) => theme.palette.text.secondary,
+                letterSpacing: "2px",
+                padding: "6px 0px 6px",
+                textAlign: "center",
+              }}
+            >
+              GAME TRAILER
+            </Typography>
+          </Box>
           <iframe
             width="100%"
-            height="400"
-            src={game.video}
+            height="500"
+            src={selectedGame.video}
             title="Game Trailer"
             frameBorder="0"
             allowFullScreen
@@ -147,18 +256,199 @@ export default function GameItem() {
 
         {/* Reviews & Comments */}
         <Box sx={{ mt: 6 }}>
-          <Typography variant="h5">Reviews & Comments</Typography>
+          <Typography variant="h5" color="#FF8000">
+            Reviews & Comments
+          </Typography>
+
+          {/* Hiển thị danh sách bình luận */}
+          <Box sx={{ mt: 2 }}>
+            {comments.map((comment) => (
+              <Box
+                key={comment.id}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  borderBottom: "1px solid #444",
+                  paddingBottom: "10px",
+                  mb: 2,
+                }}
+              >
+                {/* Avatar người dùng */}
+                <Box
+                  component="img"
+                  src={comment.avatar}
+                  sx={{ width: 50, height: 50, borderRadius: "50%" }}
+                />
+
+                {/* Nội dung bình luận */}
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    variant="subtitle1"
+                    color="#FF8000"
+                    fontWeight="bold"
+                  >
+                    {comment.name}
+                  </Typography>
+                  <Typography variant="body1" color="#FFF">
+                    {comment.text}
+                  </Typography>
+                  {/* Biểu tượng like và tim */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      mt: 1,
+                    }}
+                  ></Box>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+
+          {/* Ô nhập bình luận */}
           <TextField
             fullWidth
             label="Write a comment..."
             multiline
             rows={3}
             variant="outlined"
-            sx={{ mt: 2 }}
+            sx={{
+              marginTop: "10px",
+              input: { color: "#FF8000" },
+              "& label.Mui-focused": { color: "#FF8000" },
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": { borderColor: "#FF8000" },
+                "&:hover fieldset": { borderColor: "#FF8000" },
+              },
+            }}
+            // value={newComment}
+            // onChange={(e) => setNewComment(e.target.value)}
           />
-          <Button variant="contained" sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              mt: 2,
+              border: "2px solid #FF8000",
+              mr: 2,
+              backgroundColor: "transparent",
+              "&:hover": {
+                backgroundColor: "#FF8000",
+              },
+            }}
+            // onClick={handleSubmitComment}
+          >
             Submit
           </Button>
+        </Box>
+
+        {/* List Game */}
+        <Box sx={{ padding: "71px 10px 72px", position: "relative" }}>
+          <Box sx={{ marginBottom: "20px" }}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box component="img" src={HeadingBottom} />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h5"
+              sx={{
+                fontSize: "18px",
+                fontWeight: 400,
+                color: (theme) => theme.palette.text.secondary,
+                letterSpacing: "2px",
+                padding: "6px 0px 6px",
+                textAlign: "center",
+              }}
+            >
+              TOP GAMES
+            </Typography>
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{ fontSize: "32px", textAlign: "center" }}
+            >
+              OUR LATEST GAMES
+            </Typography>
+          </Box>
+          <Swiper
+            spaceBetween={50}
+            slidesPerView={5}
+            style={{ maxWidth: "100%", overflow: "hidden" }}
+          >
+            {arr.map((item, index) => (
+              <SwiperSlide key={index}>
+                <Box sx={{ maxWidth: "185px" }}>
+                  <Box
+                    sx={{
+                      position: "relative",
+                      "&:hover .hoverBox, &:hover .cartBox": { opacity: 1 },
+                    }}
+                  >
+                    <Box component="img" src={Games} sx={{ width: "100%" }} />
+
+                    <Box
+                      className="hoverBox"
+                      sx={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        width: "100%",
+                        height: "100%",
+                        background:
+                          "linear-gradient(180deg, rgba(255, 128, 0, 0) 0%, rgba(255, 128, 0, 0.90196) 100%)",
+                        opacity: 0,
+                        transition: "opacity 0.5s ease-in-out",
+                      }}
+                    />
+
+                    <Box
+                      className="cartBox"
+                      sx={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        left: "0",
+                        right: "0",
+                        bottom: "20px",
+                        maxWidth: "148px",
+                        margin: "0 auto",
+                        padding: "5px 0",
+                        textAlign: "center",
+                        border: "1px solid #FFFFFF",
+                        opacity: 0,
+                        transition: "opacity 0.5s ease-in-out",
+                      }}
+                    >
+                      ADD TO CART
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="h4"
+                      component="h4"
+                      sx={{
+                        fontSize: "16px",
+                        padding: "23px 0px 6px",
+                        textTransform: "uppercase",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: (theme) => theme.palette.text.secondary,
+                          transition: "all 0.3s",
+                        },
+                      }}
+                    >
+                      {item.nameGames}
+                    </Typography>
+                    <StarRating value={item.quantity} />
+                  </Box>
+                </Box>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Box>
       </Container>
     </Box>
