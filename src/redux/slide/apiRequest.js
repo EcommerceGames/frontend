@@ -24,6 +24,18 @@ import {
   getSuccess,
 } from "./gameSlide";
 import { gamesCall } from "../../api/games";
+import {
+  addFailed,
+  addStart,
+  addSuccess,
+  deleteFailed,
+  deleteStart,
+  deleteSuccess,
+  getWishListFailed,
+  getWishListStart,
+  getWishListSuccess,
+} from "./wishlistSlide";
+import { wishListCall } from "../../api/wishlist";
 
 //register
 export const registerUser = async (user, dispatch, navigate) => {
@@ -140,5 +152,41 @@ export const getDetailGame = (id) => async (dispatch) => {
     dispatch(getDetailSuccess(res?.data));
   } catch (err) {
     dispatch(getDetailFailed());
+  }
+};
+
+//addWishlist
+export const addWishList = (data) => async (dispatch) => {
+  dispatch(addStart());
+  try {
+    const res = await wishListCall.create(data);
+    dispatch(addSuccess(res?.data));
+    toast.success("Add to Wishlist successfully");
+  } catch (err) {
+    dispatch(addFailed());
+    toast.error("Failed to add to Wishlist");
+  }
+};
+
+//deleteWishlist
+export const deleteWishList = async (game, dispatch) => {
+  dispatch(deleteStart());
+  try {
+    const res = await wishListCall.delete(game._id);
+    dispatch(deleteSuccess(res?.data));
+    toast.success("DeleteWishList successfully");
+  } catch (err) {
+    dispatch(deleteFailed());
+  }
+};
+
+//getWishList
+export const getWishList = (id) => async (dispatch) => {
+  dispatch(getWishListStart());
+  try {
+    const res = await gamesCall.getGames(id);
+    dispatch(getWishListSuccess(res?.data));
+  } catch (err) {
+    dispatch(getWishListFailed());
   }
 };

@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./slide/userSlide";
 import gamesReducer from "./slide/gameSlide";
+import wishlistReducer from "./slide/wishlistSlide";
 import {
   persistStore,
   persistReducer,
@@ -18,7 +19,11 @@ const persistConfig = {
   version: 1,
   storage,
 };
-const rootReducer = combineReducers({ user: userReducer, game: gamesReducer });
+const rootReducer = combineReducers({
+  user: userReducer,
+  game: gamesReducer,
+  wishlist: wishlistReducer,
+});
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({

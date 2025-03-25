@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getDetailGame } from "../../redux/slide/apiRequest";
+import { addWishList, getDetailGame } from "../../redux/slide/apiRequest";
 import Games from "../../assets/images/homepage/games.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
@@ -95,10 +95,17 @@ export default function GameItem() {
   //   console.log("id", id);
   const dispatch = useDispatch();
   const { selectedGame } = useSelector((state) => state.game.gameDetail);
+  const user = useSelector((state) => state.user.user.currentUser);
   console.log("gamesitem", selectedGame);
+  console.log("userid", user?._id);
   useEffect(() => {
     dispatch(getDetailGame(id, dispatch));
   }, [dispatch, id]);
+
+  //addWishList
+  const handleAddWishList = () => {
+    dispatch(addWishList({ user_id: user?._id, game_id: id }));
+  };
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container disableGutters maxWidth="lg" sx={{ padding: "80px 15px" }}>
@@ -205,6 +212,7 @@ export default function GameItem() {
                 Add to Cart
               </Button>
               <Button
+                onClick={handleAddWishList}
                 variant="outlined"
                 sx={{
                   border: "2px solid #FF8000",
