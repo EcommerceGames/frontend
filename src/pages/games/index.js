@@ -14,7 +14,7 @@ import StarRating from "../../components/rating";
 import product from "../../assets/images/games/games.png";
 import { FavoriteBorder } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { getGame } from "../../redux/slide/apiRequest";
+import { addWishList, getGame } from "../../redux/slide/apiRequest";
 import { useNavigate } from "react-router-dom";
 
 // const games = [
@@ -59,6 +59,7 @@ export default function Game() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentGames } = useSelector((state) => state.game.gamesList);
+  console.log("test", currentGames);
   useEffect(() => {
     getGame(dispatch);
   }, [dispatch]);
@@ -92,7 +93,11 @@ export default function Game() {
       game.price >= priceRange[0] &&
       game.price <= priceRange[1]
   );
-
+  //Add Wishlist
+  const user = useSelector((state) => state.user.user.currentUser);
+  const handleAddGameWishlist = (wishlistId) => {
+    dispatch(addWishList({ user_id: user?._id, game_id: wishlistId }));
+  };
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container sx={{ padding: "80px 0" }}>
@@ -264,10 +269,10 @@ export default function Game() {
                           backgroundColor: "rgba(0, 0, 0, 0.7)",
                         },
                       }}
-                      // onClick={(e) => {
-                      //   e.stopPropagation(); // Ngăn chặn sự kiện click lan ra Box
-                      //   setIsFavorite(!isFavorite);
-                      // }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddGameWishlist(game._id);
+                      }}
                     >
                       <FavoriteBorder sx={{ fontSize: "15px" }} />
                     </IconButton>

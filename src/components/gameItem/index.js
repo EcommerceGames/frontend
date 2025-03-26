@@ -96,8 +96,8 @@ export default function GameItem() {
   const dispatch = useDispatch();
   const { selectedGame } = useSelector((state) => state.game.gameDetail);
   const user = useSelector((state) => state.user.user.currentUser);
-  console.log("gamesitem", selectedGame);
-  console.log("userid", user?._id);
+  // console.log("gamesitem", selectedGame);
+  // console.log("userid", user?._id);
   useEffect(() => {
     dispatch(getDetailGame(id, dispatch));
   }, [dispatch, id]);
