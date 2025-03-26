@@ -55,7 +55,7 @@ export const wishListCall = {
   },
 
   //getGame
-  getBlogs: async (id) => {
+  getWishlist: async (id) => {
     try {
       const response = await clientAPI("get", `/wishlist/getWishList/${id}`);
       return response;

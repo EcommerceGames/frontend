@@ -4,7 +4,7 @@ const wishlistSlide = createSlice({
   name: "wishlist",
   initialState: {
     wishlist: {
-      currentWhiList: null,
+      currentWhiList: [],
       isFetching: false,
       error: false,
     },
@@ -16,7 +16,7 @@ const wishlistSlide = createSlice({
     },
     addSuccess: (state, action) => {
       state.wishlist.isFetching = false;
-      state.wishlist.currentWhiList = action.payload;
+      state.wishlist.currentWhiList.push(action.payload);
       state.wishlist.error = false;
     },
     addFailed: (state) => {
@@ -29,7 +29,9 @@ const wishlistSlide = createSlice({
     },
     deleteSuccess: (state, action) => {
       state.wishlist.isFetching = false;
-      state.wishlist.currentWhiList = action.payload;
+      state.wishlist.currentWhiList = state.wishlist.currentWhiList.filter(
+        (item) => item.id !== action.payload
+      );
       state.wishlist.error = false;
     },
     deleteFailed: (state) => {
@@ -37,7 +39,7 @@ const wishlistSlide = createSlice({
     },
     //Get wishlistUser
     getWishListStart: (state) => {
-      state.currentWhiList.isFetching = true;
+      state.wishlist.isFetching = true;
     },
     getWishListSuccess: (state, action) => {
       state.wishlist.isFetching = false;

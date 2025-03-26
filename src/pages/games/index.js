@@ -85,7 +85,7 @@ export default function Game() {
     setPriceRange(newValue);
   };
 
-  const filteredGames = currentGames.filter(
+  const filteredGames = currentGames?.filter(
     (game) =>
       (selectedGenres.length === 0 || selectedGenres.includes(game.genre)) &&
       (selectedRatings.length === 0 || selectedRatings.includes(game.rating)) &&
@@ -224,7 +224,7 @@ export default function Game() {
 
           {/* Game List */}
           <Grid item xs={9} container spacing={3}>
-            {filteredGames.length > 0 ? (
+            {filteredGames?.length > 0 ? (
               filteredGames.map((game) => (
                 <Grid item xs={4} key={game._id}>
                   <Box

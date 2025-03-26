@@ -169,10 +169,10 @@ export const addWishList = (data) => async (dispatch) => {
 };
 
 //deleteWishlist
-export const deleteWishList = async (game, dispatch) => {
+export const deleteWishList = (id) => async (dispatch) => {
   dispatch(deleteStart());
   try {
-    const res = await wishListCall.delete(game._id);
+    const res = await wishListCall.delete(id);
     dispatch(deleteSuccess(res?.data));
     toast.success("DeleteWishList successfully");
   } catch (err) {
@@ -184,7 +184,7 @@ export const deleteWishList = async (game, dispatch) => {
 export const getWishList = (id) => async (dispatch) => {
   dispatch(getWishListStart());
   try {
-    const res = await gamesCall.getGames(id);
+    const res = await wishListCall.getWishlist(id);
     dispatch(getWishListSuccess(res?.data));
   } catch (err) {
     dispatch(getWishListFailed());

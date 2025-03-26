@@ -171,15 +171,15 @@ export default function GameItem() {
           </Grid>
           <Grid item xs={12} md={5}>
             <Typography variant="h4" sx={{ fontWeight: "600" }}>
-              {selectedGame.title}
+              {selectedGame?.title}
             </Typography>
 
             <Typography variant="h6" sx={{ color: "#FF8000" }}>
-              ${selectedGame.price}
+              ${selectedGame?.price}
             </Typography>
-            <StarRating value={selectedGame.rating} readOnly />
+            <StarRating value={selectedGame?.rating} readOnly />
             <Typography sx={{ fontSize: "14px", color: "#CCCC" }}>
-              {selectedGame.content}
+              {selectedGame?.content}
             </Typography>
             <Box sx={{ mt: 4 }}>
               <Button
@@ -255,7 +255,7 @@ export default function GameItem() {
           <iframe
             width="100%"
             height="500"
-            src={selectedGame.video}
+            src={selectedGame?.video}
             title="Game Trailer"
             frameBorder="0"
             allowFullScreen
