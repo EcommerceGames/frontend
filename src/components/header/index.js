@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import DarkLight from "../darkLight";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/slide/apiRequest";
+import CartIcon from "../CartIcon";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -169,6 +170,8 @@ export default function Header() {
               />
             </Box>
           )}
+
+          <CartIcon cartCount={"3"} />
           {/* <DarkLight /> */}
         </Box>
       </Box>

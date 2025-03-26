@@ -6,6 +6,7 @@ import StarRating from "../../components/rating";
 import { deleteWishList, getWishList } from "../../redux/slide/apiRequest";
 import CloseIcon from "@mui/icons-material/Close";
 import DialogClose from "../../components/dialogClose";
+import HeadingBottom from "../../assets/images/homepage/heading-border.png";
 export default function Wishlist() {
   const [refresh, setRefresh] = useState(false);
   const [open, setOpen] = useState(false);
@@ -40,6 +41,25 @@ export default function Wishlist() {
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container disableGutters maxWidth="lg" sx={{ padding: "80px 15px" }}>
+        <Box sx={{ marginBottom: "10px" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box component="img" src={HeadingBottom} />
+          </Box>
+          <Typography
+            variant="h5"
+            component="h5"
+            sx={{
+              fontSize: "18px",
+              fontWeight: 400,
+              color: (theme) => theme.palette.text.secondary,
+              letterSpacing: "2px",
+              padding: "6px 0px 6px",
+              textAlign: "center",
+            }}
+          >
+            My Wishlist
+          </Typography>
+        </Box>
         <Grid item xs={12} container spacing={3}>
           {currentWhiList?.length > 0 ? (
             currentWhiList?.map((game) => (
