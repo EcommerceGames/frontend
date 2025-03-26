@@ -161,10 +161,9 @@ export const addWishList = (data) => async (dispatch) => {
   try {
     const res = await wishListCall.create(data);
     dispatch(addSuccess(res?.data));
-    toast.success("Add to Wishlist successfully");
+    toast.success("Add Wishlist successfully");
   } catch (err) {
     dispatch(addFailed());
-    toast.error("Failed to add to Wishlist");
   }
 };
 

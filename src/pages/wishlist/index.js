@@ -1,11 +1,16 @@
 import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import StarRating from "../../components/rating";
 import { deleteWishList, getWishList } from "../../redux/slide/apiRequest";
 import CloseIcon from "@mui/icons-material/Close";
+import DialogClose from "../../components/dialogClose";
 export default function Wishlist() {
+  const [refresh, setRefresh] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedWishlistId, setSelectedWishlistId] = useState(null);
+  console.log("check", selectedWishlistId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user.currentUser);
@@ -13,10 +18,25 @@ export default function Wishlist() {
   console.log("danh sahc", currentWhiList);
 
   useEffect(() => {
-    dispatch(getWishList(user?._id));
-  }, []);
-  //
-  
+    if (user?._id) {
+      dispatch(getWishList(user?._id));
+    }
+  }, [user?._id, dispatch, refresh]);
+  //Dialog
+  const handleOpen = (wishlistId) => {
+    setSelectedWishlistId(wishlistId);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+  //DeleteWishlist
+  const handleConfirm = () => {
+    if (selectedWishlistId) {
+      setOpen(false);
+      dispatch(deleteWishList(selectedWishlistId)).then(() => {
+        setRefresh((prev) => !prev);
+      });
+    }
+  };
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container disableGutters maxWidth="lg" sx={{ padding: "80px 15px" }}>
@@ -59,11 +79,16 @@ export default function Wishlist() {
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      dispatch(deleteWishList(game?._id));
+                      handleOpen(game?._id);
                     }}
                   >
                     <CloseIcon sx={{ fontSize: "15px" }} />
                   </IconButton>
+                  <DialogClose
+                    open={open}
+                    onClose={handleClose}
+                    onConfirm={handleConfirm}
+                  />
                   <Typography
                     variant="h6"
                     onClick={() => navigate(`/games/${game?.game_id?._id}`)}
