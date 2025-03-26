@@ -171,7 +171,7 @@ export default function Header() {
             </Box>
           )}
 
-          <CartIcon cartCount={"3"} />
+          <CartIcon cartCount={"3"}  />
           {/* <DarkLight /> */}
         </Box>
       </Box>

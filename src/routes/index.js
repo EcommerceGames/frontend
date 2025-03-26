@@ -8,7 +8,7 @@ import SignUp from "../pages/signup";
 import InfoAccount from "../pages/infoAccount";
 import Wishlist from "../pages/wishlist";
 import GameItem from "../components/gameItem";
-
+import ShopCart from "../pages/shoppingCart";
 export const routes = [
   { path: "/signin", page: SignIn, isShowHeader: false },
   { path: "/signup", page: SignUp, isShowHeader: false },
@@ -50,6 +50,11 @@ export const routes = [
   {
     path: "/wishlist",
     page: Wishlist,
+    isShowHeader: true,
+  },
+  {
+    path: "/shopcart",
+    page: ShopCart,
     isShowHeader: true,
   },
 ];
