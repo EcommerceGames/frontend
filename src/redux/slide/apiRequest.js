@@ -36,6 +36,8 @@ import {
   getWishListSuccess,
 } from "./wishlistSlide";
 import { wishListCall } from "../../api/wishlist";
+import { addCartFailed, addCartStart, addCartSuccess, removeCartFailed, removeCartStart, removeCartSuccess } from "./cartSlide";
+import { shopCartCall } from "../../api/shopcart";
 
 //register
 export const registerUser = async (user, dispatch, navigate) => {
@@ -187,5 +189,29 @@ export const getWishList = (id) => async (dispatch) => {
     dispatch(getWishListSuccess(res?.data));
   } catch (err) {
     dispatch(getWishListFailed());
+  }
+};
+
+//createCart
+export const addCart = (data) => async (dispatch) => {
+  dispatch(addCartStart());
+  try {
+    const res = await shopCartCall.create(data);
+    dispatch(addCartSuccess(res?.data));
+    toast.success("Add Cart successfully");
+  } catch (err) {
+    dispatch(addCartFailed());
+  }
+};
+
+//deleteCart
+export const deleteCart = (id) => async (dispatch) => {
+  dispatch(removeCartStart());
+  try {
+    const res = await shopCartCall.delete(id);
+    dispatch(removeCartSuccess(res?.data));
+    toast.success("DeleteWishList successfully");
+  } catch (err) {
+    dispatch(removeCartFailed());
   }
 };
