@@ -36,7 +36,17 @@ import {
   getWishListSuccess,
 } from "./wishlistSlide";
 import { wishListCall } from "../../api/wishlist";
-import { addCartFailed, addCartStart, addCartSuccess, removeCartFailed, removeCartStart, removeCartSuccess } from "./cartSlide";
+import {
+  addCartFailed,
+  addCartStart,
+  addCartSuccess,
+  getCartFailed,
+  getCartStart,
+  getCartSuccess,
+  removeCartFailed,
+  removeCartStart,
+  removeCartSuccess,
+} from "./cartSlide";
 import { shopCartCall } from "../../api/shopcart";
 
 //register
@@ -213,5 +223,19 @@ export const deleteCart = (id) => async (dispatch) => {
     toast.success("DeleteWishList successfully");
   } catch (err) {
     dispatch(removeCartFailed());
+  }
+};
+
+//updateQuantityCart
+
+
+//Get CartUser
+export const getCart = (id) => async (dispatch) => {
+  dispatch(getCartStart());
+  try {
+    const res = await shopCartCall.getWishlist(id);
+    dispatch(getCartSuccess(res?.data));
+  } catch (err) {
+    dispatch(getCartFailed());
   }
 };
