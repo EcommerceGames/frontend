@@ -48,9 +48,9 @@ export const shopCartCall = {
   },
 
   //delete
-  delete: async (id) => {
+  delete: async (data) => {
     try {
-      const response = await clientAPI("delete", `/cart/deleteCart/${id}`);
+      const response = await clientAPI("delete", "/cart/deleteCart", data);
       return response;
     } catch (error) {
       console.error("Create error:", error);

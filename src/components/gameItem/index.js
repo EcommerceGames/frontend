@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import {
   addCart,
   addWishList,
+  getCart,
   getDetailGame,
 } from "../../redux/slide/apiRequest";
 import Games from "../../assets/images/homepage/games.png";
@@ -23,6 +24,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import StarRating from "../rating";
 import HeadingBottom from "../../assets/images/homepage/heading-border.png";
 import { FavoriteBorder } from "@mui/icons-material";
+import toast from "react-hot-toast";
 // const game = {
 //   name: "Epic Game",
 //   price: "$49.99",
@@ -94,6 +96,7 @@ const arr = [
   },
 ];
 export default function GameItem() {
+  const [refresh, setRefresh] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { id } = useParams();
   //   console.log("id", id);
@@ -113,8 +116,14 @@ export default function GameItem() {
 
   //addShopCart
   const handleAddCart = () => {
-    dispatch(addCart({ user_id: user?._id, game_id: id }));
+    dispatch(addCart({ user_id: user?._id, game_id: id })).then(() => {
+      setRefresh((prev) => !prev);
+    });
+    toast.success("Add Cart successfully");
   };
+  useEffect(() => {
+    dispatch(getCart(user?._id));
+  }, [user?._id, dispatch, refresh]);
   return (
     <Box sx={{ backgroundColor: "#191a1a" }}>
       <Container disableGutters maxWidth="lg" sx={{ padding: "80px 15px" }}>

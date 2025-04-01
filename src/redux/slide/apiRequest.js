@@ -208,26 +208,23 @@ export const addCart = (data) => async (dispatch) => {
   try {
     const res = await shopCartCall.create(data);
     dispatch(addCartSuccess(res?.data));
-    toast.success("Add Cart successfully");
   } catch (err) {
     dispatch(addCartFailed());
   }
 };
 
 //deleteCart
-export const deleteCart = (id) => async (dispatch) => {
+export const deleteCart = (data) => async (dispatch) => {
   dispatch(removeCartStart());
   try {
-    const res = await shopCartCall.delete(id);
+    const res = await shopCartCall.delete(data);
     dispatch(removeCartSuccess(res?.data));
-    toast.success("DeleteWishList successfully");
   } catch (err) {
     dispatch(removeCartFailed());
   }
 };
 
 //updateQuantityCart
-
 
 //Get CartUser
 export const getCart = (id) => async (dispatch) => {

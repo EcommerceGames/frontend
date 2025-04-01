@@ -34,6 +34,10 @@ export default function Header() {
   };
   const user = useSelector((state) => state.user.user.currentUser);
   // console.log("user", user);
+
+  const items = useSelector((state) => state.cart.shopCart.items.items);
+  // console.log("tong tien", items);
+  const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
   const navigate = useNavigate();
   return (
     <Box
@@ -82,81 +86,84 @@ export default function Header() {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {user ? (
-            <Box>
-              <IconButton
-                onClick={handleClick}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                <Avatar src={user.image || "/default-avatar.png"} />
-                <Typography sx={{ color: "#FFFFFF" }}>
-                  {user.username}
-                </Typography>
-              </IconButton>
-              <Menu
-                sx={{
-                  "& .MuiPaper-root": {
-                    backgroundColor: "rgba(129, 122, 122, 0)",
-                    backdropFilter: "blur(10px)",
-                    color: "#fff",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-                    borderRadius: "8px",
-                  },
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                transformOrigin={{ vertical: "top", horizontal: "center" }}
-              >
-                <MenuItem
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box>
+                <IconButton
+                  onClick={handleClick}
                   sx={{
-                    color: "#fff",
-                    transition: "background 0.3s ease-in-out",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  onClick={() => {
-                    navigate("/infoAccount");
-                    handleClose();
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
                   }}
                 >
-                  Account information
-                </MenuItem>
-                <MenuItem
+                  <Avatar src={user.image || "/default-avatar.png"} />
+                  <Typography sx={{ color: "#FFFFFF" }}>
+                    {user.username}
+                  </Typography>
+                </IconButton>
+                <Menu
                   sx={{
-                    color: "#fff",
-                    transition: "background 0.3s ease-in-out",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    "& .MuiPaper-root": {
+                      backgroundColor: "rgba(129, 122, 122, 0)",
+                      backdropFilter: "blur(10px)",
+                      color: "#fff",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+                      borderRadius: "8px",
                     },
                   }}
-                  onClick={() => {
-                    navigate("/wishlist");
-                    handleClose();
-                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                  transformOrigin={{ vertical: "top", horizontal: "center" }}
                 >
-                  Wishlist
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    color: "#fff",
-                    transition: "background 0.3s ease-in-out",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  onClick={() => {
-                    handleLogout();
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
+                  <MenuItem
+                    sx={{
+                      color: "#fff",
+                      transition: "background 0.3s ease-in-out",
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate("/infoAccount");
+                      handleClose();
+                    }}
+                  >
+                    Account information
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      color: "#fff",
+                      transition: "background 0.3s ease-in-out",
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate("/wishlist");
+                      handleClose();
+                    }}
+                  >
+                    Wishlist
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      color: "#fff",
+                      transition: "background 0.3s ease-in-out",
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      },
+                    }}
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </Box>
+              <CartIcon cartCount={totalQuantity} />
             </Box>
           ) : (
             <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -171,7 +178,6 @@ export default function Header() {
             </Box>
           )}
 
-          <CartIcon cartCount={"3"}  />
           {/* <DarkLight /> */}
         </Box>
       </Box>
