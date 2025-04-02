@@ -248,11 +248,11 @@ export default function Game() {
                   >
                     <Box
                       component="img"
-                      src={product}
+                      src={game.image}
                       alt={game.title}
                       sx={{
                         borderRadius: "20px",
-                        height: "100%",
+                        height: "300px",
                         width: "100%",
                       }}
                     />
