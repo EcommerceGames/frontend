@@ -11,12 +11,14 @@ import {
   IconButton,
 } from "@mui/material";
 import StarRating from "../../components/rating";
-import product from "../../assets/images/games/games.png";
 import { FavoriteBorder } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addWishList, getGame } from "../../redux/slide/apiRequest";
 import { useNavigate } from "react-router-dom";
-
+import ReactPaginate from "react-paginate";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // const games = [
 //   {
 //     id: 1,
@@ -68,12 +70,24 @@ export default function Game() {
   const [priceRange, setPriceRange] = useState([0, 500]);
   // const [isFavorite, setIsFavorite] = useState(false);
 
+  //Phân trang
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 6;
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = currentGames.slice(offset, offset + itemsPerPage);
+
+  //Thể loại game
   const handleGenreChange = (genre) => {
     setSelectedGenres((prev) =>
       prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
     );
   };
-
+  //Đánh giá game
   const handleRatingChange = (rating) => {
     setSelectedRatings((prev) =>
       prev.includes(rating)
@@ -81,12 +95,12 @@ export default function Game() {
         : [...prev, rating]
     );
   };
-
+  //Giá
   const handlePriceChange = (_, newValue) => {
     setPriceRange(newValue);
   };
 
-  const filteredGames = currentGames?.filter(
+  const filteredGames = currentItems?.filter(
     (game) =>
       (selectedGenres.length === 0 || selectedGenres.includes(game.genre)) &&
       (selectedRatings.length === 0 || selectedRatings.includes(game.rating)) &&
@@ -241,6 +255,10 @@ export default function Game() {
                       backgroundColor: "#1e1e1e",
                       transition: "all 0.3s",
                       cursor: "pointer",
+                      minHeight: "420px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
                       "&:hover": {
                         transform: "translateY(-10px)",
                       },
@@ -333,6 +351,75 @@ export default function Game() {
               </Box>
             )}
           </Grid>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+              listStyle: "none",
+              mt: 3,
+              mb: 4,
+              "& ul": {
+                display: "flex",
+                gap: "10px",
+              },
+              "& li": {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+
+              "& li a": {
+                color: "white",
+                textDecoration: "none",
+                padding: "8px 15px",
+                borderRadius: "8px",
+                backgroundColor: "#2c2c2c",
+                transition: "0.3s",
+              },
+
+              "& .active a": {
+                backgroundColor: "#ff8000",
+                color: "white",
+              },
+            }}
+          >
+            <ReactPaginate
+              previousLabel={
+                <IconButton
+                  sx={{
+                    color: "#FF8000",
+                    "&:hover": { backgroundColor: "#FF800020" },
+                  }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+              }
+              nextLabel={
+                <IconButton
+                  sx={{
+                    color: "#FF8000",
+                    "&:hover": { backgroundColor: "#FF800020" },
+                  }}
+                >
+                  <ArrowForwardIcon />
+                </IconButton>
+              }
+              breakLabel={
+                <MoreHorizIcon sx={{ color: "#FF8000", fontSize: "24px" }} />
+              }
+              pageCount={Math.ceil(currentGames.length / itemsPerPage)}
+              onPageChange={handlePageClick}
+              containerClassName="pagination"
+              activeClassName="active"
+              pageLinkClassName="page-link"
+              previousLinkClassName="page-link"
+              nextLinkClassName="page-link"
+              breakLinkClassName="page-link"
+            />
+          </Box>
         </Grid>
       </Container>
     </Box>
